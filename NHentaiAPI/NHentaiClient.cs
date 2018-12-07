@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using NHentaiAPI.Model;
-using System;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using NHentaiAPI.Model.Book;
+using NHentaiAPI.Model.Search;
 
-namespace HentaiAPI
+namespace NHentaiAPI
 {
     /// <summary>
     /// NHentai
@@ -26,7 +26,7 @@ namespace HentaiAPI
         { 
             return $"{NHENTAI_HOME}/api/galleries/search?" +
 				$"query={content.Replace(" ", "+")}&" +
-				"page=$pageNum";
+                $"page={pageNum}";
         }
 			
 	    protected virtual string getBookDetailsUrl(string bookId)
@@ -95,53 +95,35 @@ namespace HentaiAPI
 
         #region Utilities
 
-        private async void RunApiCall<TOutput>(string rootUrl, Action<TOutput> succes, Action<string> fail)
+        private async Task<TOutput> getData<TOutput>(string rootUrl)
         {
-            try
-            {
-                var json = await _client.DownloadStringTaskAsync(rootUrl);
-                    succes(JsonConvert.DeserializeObject<TOutput>(json));
-            }
-            catch (Exception e)
-            {
-                fail(e.Message);
-            }
+            var json = await _client.DownloadStringTaskAsync(rootUrl);
+            return JsonConvert.DeserializeObject<TOutput>(json);
+        }
+
+        #endregion
+
+        #region Search
+
+        public Task<SearchResults> GetHomePageList(int pageNum)
+        { 
+            var url = getHomePageUrl(pageNum);
+            return getData<SearchResults>(url);
+        }
+
+	    public Task<SearchResults> GetSearchPageList(string keyword,int pageNum)	
+		{ 
+            var url = getSearchUrl(keyword, pageNum);
+            return getData<SearchResults>(url);
         }
 
         #endregion
 
         #region Books
 
-        public Book GetBookASync(string bookId)
-        { 
+        public Images GetBookASync(string bookId)
+        {
             var url = getBookDetailsUrl(bookId);
-
-            //TODO : download 
-
-            return null;
-        }
-
-        #endregion
-
-        #region Page
-
-        public PageResult GetPageList(string url)
-        { 
-            return null;
-        }
-
-	    public PageResult getHomePageList(int pageNum)
-        { 
-            var url = getHomePageUrl(pageNum);
-
-            //TODO : download 
-
-            return null;
-        }
-
-	    public PageResult GetSearchPageList(string keyword,int pageNum)	
-		{ 
-            var url = getSearchUrl(keyword, pageNum);
 
             //TODO : download 
 

@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace NHentaiAPI.Model
+namespace NHentaiAPI.Model.Book
 {
     public class Tag
     {
@@ -21,8 +18,5 @@ namespace NHentaiAPI.Model
 
         [JsonProperty("count")]
         public int Count { get; set;}
-
-        [JsonProperty("id")]
-        public bool IsFavourite { get; set;}
     }
 }
