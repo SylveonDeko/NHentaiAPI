@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace NHentaiAPI.Model.Book
 {
-    public class Cover
+    public class Image
     {
         [JsonProperty("t")]
         public string Type { get; set; }

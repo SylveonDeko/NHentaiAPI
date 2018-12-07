@@ -13,7 +13,7 @@ namespace NHentaiAPI.Model.Search
         public int Id { get; set; }
 
         [JsonProperty("media_id")]
-        public string MediaId { get; set; }
+        public int MediaId { get; set; }
 
         [JsonProperty("title")]
         public Title Title { get; set; }

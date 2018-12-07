@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NHentaiAPI.Model.Book;
@@ -8,12 +9,13 @@ using NHentaiAPI.Model.Search;
 namespace NHentaiAPI
 {
     /// <summary>
-    /// NHentai
+    /// nHentai Client
     /// </summary>
     public class NHentaiClient
     {
         private readonly WebClient _client = new WebClient();
 
+        //copied from : https://github.com/NHMoeDev/NHentai-android/blob/master/app/src/main/kotlin/moe/feng/nhentai/api/ApiConstants.kt
         const string NHENTAI_HOME = "https://nhentai.net";
 	    const string NHENTAI_I = "https://i.nhentai.net";
 	    const string NHENTAI_T = "https://t.nhentai.net";
@@ -34,8 +36,16 @@ namespace NHentaiAPI
 				$"query={content.Replace(" ", "+")}&" +
                 $"page={pageNum}";
         }
-			
-	    protected virtual string getBookDetailsUrl(int bookId)
+
+        protected virtual string getTagUrl(Tag tag, bool isPopularList, int pageNum)
+        {
+            return $"{NHENTAI_HOME}/api/galleries/tagged?" +
+                   $"tag_id={tag.Id}" +
+                   $"&page={pageNum}" +
+                   (isPopularList ? "&sort=popular" : "");
+        }
+
+        protected virtual string getBookDetailsUrl(int bookId)
         { 
             return $"{NHENTAI_HOME}/api/gallery/{bookId}";
         }
@@ -53,14 +63,6 @@ namespace NHentaiAPI
 	    protected virtual string getThumbGalleryUrl(int galleryId)
         { 
             return $"{NHENTAI_T}/galleries/{galleryId}";
-        }
-			
-	    protected virtual string getTagUrl(Tag tag,bool isPopularList,int pageNum)
-        { 
-            return $"{NHENTAI_HOME}/api/galleries/tagged?" +
-					$"tag_id={tag.Id}" +
-					$"&page={pageNum}" +
-					(isPopularList ? "&sort=popular" : "");
         }
 
         #endregion
@@ -96,10 +98,24 @@ namespace NHentaiAPI
 
         #region Utilities
 
-        protected async Task<TOutput> getData<TOutput>(string rootUrl)
+        protected virtual async Task<TOutput> getData<TOutput>(string rootUrl)
         {
             var json = await _client.DownloadStringTaskAsync(rootUrl);
             return JsonConvert.DeserializeObject<TOutput>(json);
+        }
+
+        protected virtual async Task<byte[]> getByteData(string rootUrl)
+        {
+            var data = await _client.DownloadDataTaskAsync(rootUrl);
+            return data;
+        }
+
+        protected virtual string ConvertType(string type)
+        {
+            if (type == "j")
+                return "jpg";
+
+            return "png";
         }
 
         #endregion
@@ -118,6 +134,12 @@ namespace NHentaiAPI
             return getData<SearchResults>(url);
         }
 
+        public Task<SearchResults> GetTagPageListAsync(Tag tag, bool isPopularList, int pageNum)
+        {
+            var url = getTagUrl(tag, isPopularList, pageNum);
+            return getData<SearchResults>(url);
+        }
+
         #endregion
 
         #region Books
@@ -132,6 +154,26 @@ namespace NHentaiAPI
         {
             var url = getBookRecommendUrl(bookId);
             return getData<BookRecommend>(url);
+        }
+
+        #endregion
+
+        #region Picture
+
+        public Task<byte[]> GetPictureAsync(Book book, int pageNum)
+        {
+            if(book == null)
+                throw new ArgumentNullException(nameof(book));
+
+            //get page
+            var page = book.Images.Pages[pageNum - 1];
+
+            //get file type
+            var fileType = ConvertType(page.Type);
+
+            //get binary file
+            var url = getPictureUrl(book.MediaId, pageNum, fileType);
+            return getByteData(url);
         }
 
         #endregion

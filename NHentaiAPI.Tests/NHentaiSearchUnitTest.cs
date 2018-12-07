@@ -1,5 +1,7 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NHentaiAPI.Model.Book;
 
 namespace NHentaiAPI.Tests
 {
@@ -34,6 +36,23 @@ namespace NHentaiAPI.Tests
 
             Assert.AreEqual(25, result.PerPage);
             Assert.AreEqual(25, result.Result.Count);
+        }
+
+        [TestMethod]
+        public async Task TestTagResult()
+        {
+            //generate client
+            var client = new NHentaiClient();
+
+            //https://nhentai.net/api/galleries/tagged?tag_id=1&page=1&sort=popular
+            var tag = new Tag
+            {
+                Id = 1
+            };
+            var result = await client.GetTagPageListAsync(tag,true,1);
+
+            Assert.AreEqual(25, result.PerPage);
+            Assert.AreEqual(true, result.Result.Any());
         }
     }
 }

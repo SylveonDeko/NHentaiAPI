@@ -8,12 +8,12 @@ namespace NHentaiAPI.Model.Book
     public class Images
     {
         [JsonProperty("pages")]
-        public List<Page> Pages { get; set; }
+        public List<Image> Pages { get; set; }
 
         [JsonProperty("cover")]
-        public Cover Cover { get; set; }
+        public Image Cover { get; set; }
 
         [JsonProperty("thumbnail")]
-        public Thumbnail Thumbnail { get; set; }
+        public Image Thumbnail { get; set; }
     }
 }
