@@ -88,5 +88,45 @@ namespace HentaiAPI
         }
 
         #endregion
+
+        #region Books
+
+        public Book GetBookASync(string bookId)
+        { 
+            var url = getBookDetailsUrl(bookId);
+
+            //TODO : download 
+
+            return null;
+        }
+
+        #endregion
+
+        #region Page
+
+        public PageResult GetPageList(string url)
+        { 
+            return null;
+        }
+
+	    public PageResult getHomePageList(int pageNum)
+        { 
+            var url = getHomePageUrl(pageNum);
+
+            //TODO : download 
+
+            return null;
+        }
+
+	    public PageResult GetSearchPageList(string keyword,int pageNum)	
+		{ 
+            var url = getSearchUrl(keyword, pageNum);
+
+            //TODO : download 
+
+            return null;
+        }
+
+        #endregion
     }
 }
