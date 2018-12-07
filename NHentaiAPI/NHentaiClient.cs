@@ -22,6 +22,11 @@ namespace NHentaiAPI
 
         #region Data urls
 
+        protected virtual string getHomePageUrl(int pageNum)
+        {
+            return $"{NHENTAI_HOME}/api/galleries/all?page={pageNum}";
+        }
+
         protected virtual string getSearchUrl(string content,int pageNum)
         { 
             return $"{NHENTAI_HOME}/api/galleries/search?" +
@@ -29,22 +34,22 @@ namespace NHentaiAPI
                 $"page={pageNum}";
         }
 			
-	    protected virtual string getBookDetailsUrl(string bookId)
+	    protected virtual string getBookDetailsUrl(int bookId)
         { 
             return $"{NHENTAI_HOME}/api/gallery/{bookId}";
         }
 			
-	    protected virtual string getBookRecommendUrl(string bookId)
+	    protected virtual string getBookRecommendUrl(int bookId)
         { 
             return $"{NHENTAI_HOME}/api/gallery/{bookId}/related";
         }
 			
-	    protected virtual string getGalleryUrl(string galleryId)
+	    protected virtual string getGalleryUrl(int galleryId)
 		{ 
             return $"{NHENTAI_I}/galleries/{galleryId}";
         }
 
-	    protected virtual string getThumbGalleryUrl(string galleryId)
+	    protected virtual string getThumbGalleryUrl(int galleryId)
         { 
             return $"{NHENTAI_T}/galleries/{galleryId}";
         }
@@ -56,37 +61,32 @@ namespace NHentaiAPI
 					$"&page={pageNum}" +
 					(isPopularList ? "&sort=popular" : "");
         }
-			
-	    protected virtual string getHomePageUrl(int pageNum)
-		{
-            return $"{NHENTAI_HOME}/api/galleries/all?page={pageNum}";
-        }
 
         #endregion
 
         #region Picture urls
 
-        protected virtual string getPictureUrl(string galleryId ,string pageNum ,string fileType)
+        protected virtual string getPictureUrl(int galleryId , int pageNum ,string fileType)
         { 
             return $"{getGalleryUrl(galleryId)}/{pageNum}.{fileType}";
         }
 			
-	    protected virtual string getThumbPictureUrl(string galleryId ,string pageNum ,string fileType)
+	    protected virtual string getThumbPictureUrl(int galleryId , int pageNum ,string fileType)
         { 
             return $"{getThumbGalleryUrl(galleryId)}/${pageNum}t.{fileType}";
         }
 			
-	    protected virtual string getBigCoverUrl(string galleryId)
+	    protected virtual string getBigCoverUrl(int galleryId)
         {
             return $"{getThumbGalleryUrl(galleryId)}/cover.jpg";
         }
 			
-	    protected virtual string getOriginPictureUrl(string galleryId ,string pageNum)
+	    protected virtual string getOriginPictureUrl(int galleryId , int pageNum)
         {
             return getPictureUrl(galleryId, pageNum, "jpg");
         }
 			
-	    protected virtual string getBookThumbUrl(string galleryId ,string fileType = "jpg")
+	    protected virtual string getBookThumbUrl(int galleryId ,string fileType = "jpg")
         { 
             return $"{getThumbGalleryUrl(galleryId)}/thumb.${fileType ?? "jpg"}";
         }
@@ -95,7 +95,7 @@ namespace NHentaiAPI
 
         #region Utilities
 
-        private async Task<TOutput> getData<TOutput>(string rootUrl)
+        protected async Task<TOutput> getData<TOutput>(string rootUrl)
         {
             var json = await _client.DownloadStringTaskAsync(rootUrl);
             return JsonConvert.DeserializeObject<TOutput>(json);
@@ -105,13 +105,13 @@ namespace NHentaiAPI
 
         #region Search
 
-        public Task<SearchResults> GetHomePageList(int pageNum)
+        public Task<SearchResults> GetHomePageListAsync(int pageNum)
         { 
             var url = getHomePageUrl(pageNum);
             return getData<SearchResults>(url);
         }
 
-	    public Task<SearchResults> GetSearchPageList(string keyword,int pageNum)	
+	    public Task<SearchResults> GetSearchPageListAsync(string keyword,int pageNum)	
 		{ 
             var url = getSearchUrl(keyword, pageNum);
             return getData<SearchResults>(url);
@@ -121,13 +121,16 @@ namespace NHentaiAPI
 
         #region Books
 
-        public Images GetBookASync(string bookId)
+        public Task<Result> GetBookAsync(int bookId)
         {
             var url = getBookDetailsUrl(bookId);
+            return getData<Result>(url);
+        }
 
-            //TODO : download 
-
-            return null;
+        public Task<SearchResults> GetBookRecommendAsync(int bookId)
+        {
+            var url = getBookRecommendUrl(bookId);
+            return getData<SearchResults>(url);
         }
 
         #endregion

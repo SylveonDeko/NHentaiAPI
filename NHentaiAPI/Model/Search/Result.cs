@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using NHentaiAPI.Model.Book;
 
 namespace NHentaiAPI.Model.Search
@@ -9,7 +10,7 @@ namespace NHentaiAPI.Model.Search
     public class Result
     {
         [JsonProperty("id")]
-        public object Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("media_id")]
         public string MediaId { get; set; }
@@ -24,7 +25,8 @@ namespace NHentaiAPI.Model.Search
         public string Scanlator { get; set; }
 
         [JsonProperty("upload_date")]
-        public int UploadDate { get; set; }
+        [JsonConverter(typeof(UnixDateTimeConverter))]
+        public DateTime UploadDate { get; set; }
 
         [JsonProperty("tags")]
         public List<Tag> Tags { get; set; }
