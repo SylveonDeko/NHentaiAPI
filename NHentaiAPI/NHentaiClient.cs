@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHentaiAPI.Model;
+using System;
 
 namespace HentaiAPI
 {
@@ -46,9 +47,9 @@ namespace HentaiAPI
 	    protected string getTagUrl(Tag tag,bool isPopularList,int pageNum)
         { 
             return $"{NHENTAI_HOME}/api/galleries/tagged?" +
-					$"tag_id={tag.id}" +
+					$"tag_id={tag.Id}" +
 					$"&page={pageNum}" +
-					isPopularList ? "&sort=popular" : "";
+					(isPopularList ? "&sort=popular" : "");
         }
 			
 	    protected string getHomePageUrl(int pageNum)
