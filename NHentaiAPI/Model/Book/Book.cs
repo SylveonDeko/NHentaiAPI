@@ -7,7 +7,7 @@ using NHentaiAPI.Model.Book;
 
 namespace NHentaiAPI.Model.Search
 {
-    public class Result
+    public class Book
     {
         [JsonProperty("id")]
         public int Id { get; set; }

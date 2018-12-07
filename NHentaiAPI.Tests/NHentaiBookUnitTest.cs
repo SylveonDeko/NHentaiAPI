@@ -39,7 +39,7 @@ namespace NHentaiAPI.Tests
             //generate client
             var client = new NHentaiClient();
 
-            //https://nhentai.net/api/gallery/161194
+            //https://nhentai.net/api/gallery/161194/related
             var result = await client.GetBookRecommendAsync(161194);
 
             //as least one recommend

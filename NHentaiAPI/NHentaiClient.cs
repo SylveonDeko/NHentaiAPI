@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NHentaiAPI.Model.Book;
+using NHentaiAPI.Model.Recommend;
 using NHentaiAPI.Model.Search;
 
 namespace NHentaiAPI
@@ -121,16 +122,16 @@ namespace NHentaiAPI
 
         #region Books
 
-        public Task<Result> GetBookAsync(int bookId)
+        public Task<Book> GetBookAsync(int bookId)
         {
             var url = getBookDetailsUrl(bookId);
-            return getData<Result>(url);
+            return getData<Book>(url);
         }
 
-        public Task<SearchResults> GetBookRecommendAsync(int bookId)
+        public Task<BookRecommend> GetBookRecommendAsync(int bookId)
         {
             var url = getBookRecommendUrl(bookId);
-            return getData<SearchResults>(url);
+            return getData<BookRecommend>(url);
         }
 
         #endregion

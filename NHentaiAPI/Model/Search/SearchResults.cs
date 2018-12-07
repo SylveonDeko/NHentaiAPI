@@ -8,7 +8,7 @@ namespace NHentaiAPI.Model.Search
     public class SearchResults
     {
         [JsonProperty("result")]
-        public List<Result> Result { get; set; }
+        public List<Book> Result { get; set; }
 
         [JsonProperty("num_pages")]
         public int NumPages { get; set; }
