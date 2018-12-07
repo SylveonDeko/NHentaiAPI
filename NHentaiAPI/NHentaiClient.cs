@@ -1,5 +1,8 @@
-﻿using NHentaiAPI.Model;
+﻿using Newtonsoft.Json;
+using NHentaiAPI.Model;
 using System;
+using System.Linq;
+using System.Net;
 
 namespace HentaiAPI
 {
@@ -8,6 +11,8 @@ namespace HentaiAPI
     /// </summary>
     public class NHentaiClient
     {
+        private readonly WebClient _client = new WebClient();
+
         const string NHENTAI_HOME = "https://nhentai.net";
 	    const string NHENTAI_I = "https://i.nhentai.net";
 	    const string NHENTAI_T = "https://t.nhentai.net";
@@ -17,34 +22,34 @@ namespace HentaiAPI
 
         #region Data urls
 
-        protected string getSearchUrl(string content,int pageNum)
+        protected virtual string getSearchUrl(string content,int pageNum)
         { 
             return $"{NHENTAI_HOME}/api/galleries/search?" +
 				$"query={content.Replace(" ", "+")}&" +
 				"page=$pageNum";
         }
 			
-	    protected string getBookDetailsUrl(string bookId)
+	    protected virtual string getBookDetailsUrl(string bookId)
         { 
             return $"{NHENTAI_HOME}/api/gallery/{bookId}";
         }
 			
-	    protected string getBookRecommendUrl(string bookId)
+	    protected virtual string getBookRecommendUrl(string bookId)
         { 
             return $"{NHENTAI_HOME}/api/gallery/{bookId}/related";
         }
 			
-	    protected string getGalleryUrl(string galleryId)
+	    protected virtual string getGalleryUrl(string galleryId)
 		{ 
             return $"{NHENTAI_I}/galleries/{galleryId}";
         }
 
-	    protected string getThumbGalleryUrl(string galleryId)
+	    protected virtual string getThumbGalleryUrl(string galleryId)
         { 
             return $"{NHENTAI_T}/galleries/{galleryId}";
         }
 			
-	    protected string getTagUrl(Tag tag,bool isPopularList,int pageNum)
+	    protected virtual string getTagUrl(Tag tag,bool isPopularList,int pageNum)
         { 
             return $"{NHENTAI_HOME}/api/galleries/tagged?" +
 					$"tag_id={tag.Id}" +
@@ -52,7 +57,7 @@ namespace HentaiAPI
 					(isPopularList ? "&sort=popular" : "");
         }
 			
-	    protected string getHomePageUrl(int pageNum)
+	    protected virtual string getHomePageUrl(int pageNum)
 		{
             return $"{NHENTAI_HOME}/api/galleries/all?page={pageNum}";
         }
@@ -61,30 +66,46 @@ namespace HentaiAPI
 
         #region Picture urls
 
-        // Picture urls
-        protected string getPictureUrl(string galleryId ,string pageNum ,string fileType)
+        protected virtual string getPictureUrl(string galleryId ,string pageNum ,string fileType)
         { 
             return $"{getGalleryUrl(galleryId)}/{pageNum}.{fileType}";
         }
 			
-	    protected string getThumbPictureUrl(string galleryId ,string pageNum ,string fileType)
+	    protected virtual string getThumbPictureUrl(string galleryId ,string pageNum ,string fileType)
         { 
             return $"{getThumbGalleryUrl(galleryId)}/${pageNum}t.{fileType}";
         }
 			
-	    protected string getBigCoverUrl(string galleryId)
+	    protected virtual string getBigCoverUrl(string galleryId)
         {
             return $"{getThumbGalleryUrl(galleryId)}/cover.jpg";
         }
 			
-	    protected string getOriginPictureUrl(string galleryId ,string pageNum)
+	    protected virtual string getOriginPictureUrl(string galleryId ,string pageNum)
         {
             return getPictureUrl(galleryId, pageNum, "jpg");
         }
 			
-	    protected string getBookThumbUrl(string galleryId ,string fileType = "jpg")
+	    protected virtual string getBookThumbUrl(string galleryId ,string fileType = "jpg")
         { 
             return $"{getThumbGalleryUrl(galleryId)}/thumb.${fileType ?? "jpg"}";
+        }
+
+        #endregion
+
+        #region Utilities
+
+        private async void RunApiCall<TOutput>(string rootUrl, Action<TOutput> succes, Action<string> fail)
+        {
+            try
+            {
+                var json = await _client.DownloadStringTaskAsync(rootUrl);
+                    succes(JsonConvert.DeserializeObject<TOutput>(json));
+            }
+            catch (Exception e)
+            {
+                fail(e.Message);
+            }
         }
 
         #endregion
