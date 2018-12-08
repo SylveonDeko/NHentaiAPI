@@ -1,4 +1,9 @@
 # HentaiAPI
+
+[![NuGet](https://img.shields.io/nuget/v/NHentaiAPI.svg)](https://www.nuget.org/packages/JupyterSharpPhaser)
+[![NuGet](https://img.shields.io/nuget/dt/NHentaiAPI.svg)](https://www.nuget.org/packages/JupyterSharpPhaser)
+[![NuGet](https://img.shields.io/badge/月子我婆-passed-ff69b4.svg)](https://github.com/andy840119/NHentaiAPI)
+
 A (full)  nHentai API implementation for .NET
 
 ## This package can get
