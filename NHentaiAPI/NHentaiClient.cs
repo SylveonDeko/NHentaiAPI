@@ -144,9 +144,9 @@ namespace NHentaiAPI
             return getData<SearchResults>(url);
         }
 
-        public Task<SearchResults> GetTagPageListAsync(Tag tag, bool isPopularList, int pageNum)
+        public Task<SearchResults> GetTagPageListAsync(Tag tag, SortBy sortBy, int pageNum)
         {
-            var url = getTagUrl(tag, isPopularList, pageNum);
+            var url = getTagUrl(tag, sortBy == SortBy.Popular, pageNum);
             return getData<SearchResults>(url);
         }
 

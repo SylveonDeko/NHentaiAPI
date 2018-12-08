@@ -9,6 +9,11 @@ namespace NHentaiAPI.Tests
     [TestClass]
     public class NHentaiPictureUnitTest
     {
+        /// <summary>
+        /// Get picture by book's media id and pageNumber
+        /// https://nhentai.net/g/123/
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestGetPictureResult()
         {
@@ -28,6 +33,11 @@ namespace NHentaiAPI.Tests
             Assert.AreEqual(true, result.Length>0);
         }
 
+        /// <summary>
+        /// Get thumbnail by book's media id and pageNumber
+        /// https://nhentai.net/g/123/
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestGetThumbPictureResult()
         {
@@ -47,6 +57,11 @@ namespace NHentaiAPI.Tests
             Assert.AreEqual(true, result.Length > 0);
         }
 
+        /// <summary>
+        /// Get big cover by book's media id
+        /// https://nhentai.net/g/123/
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestGetBigCoverPictureResult()
         {
@@ -66,6 +81,11 @@ namespace NHentaiAPI.Tests
             Assert.AreEqual(true, result.Length > 0);
         }
 
+        /// <summary>
+        /// Get origin picture by book's media id and pageNumber
+        /// https://nhentai.net/g/123/
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestGetOriginPictureResult()
         {
@@ -85,6 +105,11 @@ namespace NHentaiAPI.Tests
             Assert.AreEqual(true, result.Length > 0);
         }
 
+        /// <summary>
+        /// Get thumbnail cover by book's media id
+        /// https://nhentai.net/g/123/
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestBookThumbPictureResult()
         {

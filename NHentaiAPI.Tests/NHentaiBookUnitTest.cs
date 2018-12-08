@@ -14,6 +14,11 @@ namespace NHentaiAPI.Tests
     [TestClass]
     public class NHentaiBookUnitTest
     {
+        /// <summary>
+        /// Get book detail
+        /// https://nhentai.net/g/161194/
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestBookResult()
         {
@@ -33,6 +38,11 @@ namespace NHentaiAPI.Tests
             Assert.AreEqual(161194, result.Id);
         }
 
+        /// <summary>
+        /// Get recommend book
+        /// https://nhentai.net/g/161194/
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestBookRecommendResult()
         {
