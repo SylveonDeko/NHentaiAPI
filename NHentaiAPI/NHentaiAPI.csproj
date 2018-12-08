@@ -1,11 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net45;net461</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>andy840119</Authors>
+    <Product>nHentai</Product>
+    <Description>A (full?) nHentai API implementation for .NET</Description>
+    <Copyright />
+    <PackageProjectUrl>https://github.com/andy840119/NHentaiAPI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/andy840119/NHentaiAPI.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>nhentai n-hentai hentai api csharp andy840119</PackageTags>
+    <PackageReleaseNotes>[1.0.0]
+Implement most of the api i know that hHentai website have.</PackageReleaseNotes>
+    <PackageLicenseUrl>https://github.com/andy840119/NHentaiAPI</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
 
 </Project>
