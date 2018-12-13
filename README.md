@@ -1,5 +1,7 @@
 # HentaiAPI
 
+[![Build status](https://ci.appveyor.com/api/projects/status/9u2xoxn47irix7gp?svg=true)](https://ci.appveyor.com/project/andy840119/nhentaiapi)
+[![CodeFactor](https://www.codefactor.io/repository/github/andy840119/nhentaiapi/badge)](https://www.codefactor.io/repository/github/andy840119/nhentaiapi)
 [![NuGet](https://img.shields.io/nuget/v/NHentaiAPI.svg)](https://www.nuget.org/packages/NHentaiAPI)
 [![NuGet](https://img.shields.io/nuget/dt/NHentaiAPI.svg)](https://www.nuget.org/packages/NHentaiAPI)
 [![NuGet](https://img.shields.io/badge/月子我婆-passed-ff69b4.svg)](https://github.com/andy840119/NHentaiAPI)
