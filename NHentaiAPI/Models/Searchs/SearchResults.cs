@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using NHentaiAPI.Models.Books;
 
-namespace NHentaiAPI.Model.Search
+namespace NHentaiAPI.Models.Searchs
 {
     public class SearchResults
     {

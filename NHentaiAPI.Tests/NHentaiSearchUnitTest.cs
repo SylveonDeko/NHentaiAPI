@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NHentaiAPI.Model.Book;
-using NHentaiAPI.Model.Search;
+using NHentaiAPI.Models.Books;
+using NHentaiAPI.Models.Searchs;
 
 namespace NHentaiAPI.Tests
 {
@@ -42,8 +42,8 @@ namespace NHentaiAPI.Tests
             //generate client
             var client = CreateNHentaiClient();
 
-            //https://nhentai.net/api/galleries/search?query=school%20swimsuit%20loli%20full%20color&page=2
-            var result = await client.GetSearchPageListAsync("school swimsuit loli full color",2);
+            //https://nhentai.net/api/galleries/search?query=school
+            var result = await client.GetSearchPageListAsync("school",1);
 
             Assert.AreEqual(25, result.PerPage);
             Assert.AreEqual(25, result.Result.Count);

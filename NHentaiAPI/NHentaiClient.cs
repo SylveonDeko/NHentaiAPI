@@ -2,9 +2,9 @@
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using NHentaiAPI.Model.Book;
-using NHentaiAPI.Model.Recommend;
-using NHentaiAPI.Model.Search;
+using NHentaiAPI.Models.Books;
+using NHentaiAPI.Models.Recommends;
+using NHentaiAPI.Models.Searchs;
 
 namespace NHentaiAPI
 {
@@ -139,19 +139,19 @@ namespace NHentaiAPI
 
         #region Search
 
-        public Task<SearchResults> GetHomePageListAsync(int pageNum)
+        public virtual Task<SearchResults> GetHomePageListAsync(int pageNum)
         { 
             var url = GetHomePageUrl(pageNum);
             return GetData<SearchResults>(url);
         }
 
-	    public Task<SearchResults> GetSearchPageListAsync(string keyword,int pageNum)	
+	    public virtual Task<SearchResults> GetSearchPageListAsync(string keyword,int pageNum)	
 		{ 
             var url = GetSearchUrl(keyword, pageNum);
             return GetData<SearchResults>(url);
         }
 
-        public Task<SearchResults> GetTagPageListAsync(Tag tag, SortBy sortBy, int pageNum)
+        public virtual Task<SearchResults> GetTagPageListAsync(Tag tag, SortBy sortBy, int pageNum)
         {
             var url = GetTagUrl(tag, sortBy == SortBy.Popular, pageNum);
             return GetData<SearchResults>(url);
@@ -161,13 +161,13 @@ namespace NHentaiAPI
 
         #region Books
 
-        public Task<Book> GetBookAsync(int bookId)
+        public virtual Task<Book> GetBookAsync(int bookId)
         {
             var url = GetBookDetailsUrl(bookId);
             return GetData<Book>(url);
         }
 
-        public Task<BookRecommend> GetBookRecommendAsync(int bookId)
+        public virtual Task<BookRecommend> GetBookRecommendAsync(int bookId)
         {
             var url = GetBookRecommendUrl(bookId);
             return GetData<BookRecommend>(url);
@@ -177,7 +177,7 @@ namespace NHentaiAPI
 
         #region Picture
 
-        public Task<byte[]> GetPictureAsync(Book book, int pageNum)
+        public virtual Task<byte[]> GetPictureAsync(Book book, int pageNum)
         {
             //get image
             var image = GetImage(book, pageNum);
@@ -190,7 +190,7 @@ namespace NHentaiAPI
             return GetByteData(url);
         }
 
-        public Task<byte[]> GetThumbPictureAsync(Book book, int pageNum)
+        public virtual Task<byte[]> GetThumbPictureAsync(Book book, int pageNum)
         {
             //get image
             var image = GetImage(book, pageNum);
@@ -203,14 +203,14 @@ namespace NHentaiAPI
             return GetByteData(url);
         }
 
-        public Task<byte[]> GetBigCoverPictureAsync(Book book)
+        public virtual Task<byte[]> GetBigCoverPictureAsync(Book book)
         {
             //get binary file
             var url = GetBigCoverUrl(book.MediaId);
             return GetByteData(url);
         }
 
-        public Task<byte[]> GetOriginPictureAsync(Book book, int pageNum)
+        public virtual Task<byte[]> GetOriginPictureAsync(Book book, int pageNum)
         {
             //get image
             //var image = GetImage(book, pageNum);
@@ -220,7 +220,7 @@ namespace NHentaiAPI
             return GetByteData(url);
         }
 
-        public Task<byte[]> GetBookThumbPictureAsync(Book book)
+        public virtual Task<byte[]> GetBookThumbPictureAsync(Book book)
         {
             //get binary file
             var url = GetBookThumbUrl(book.MediaId);

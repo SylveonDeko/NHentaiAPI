@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace NHentaiAPI.Model.Book
+namespace NHentaiAPI.Models.Books
 {
     public class Image
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NHentaiAPI.Model.Book
+namespace NHentaiAPI.Models.Books
 {
     public class Tag
     {
