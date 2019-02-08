@@ -14,66 +14,65 @@ namespace NHentaiAPI.Tests
         {
             return new TestNHentaiClient();
         }
-    }
 
-    public class TestNHentaiClient : NHentaiClient
-    {
-
-        #region Urls
-
-        protected override string ApiRootUrl => "https://nhent.ai";
-
-        #endregion
-
-        #region Search
-
-        public override async Task<SearchResults> GetHomePageListAsync(int pageNum)
+        private class TestNHentaiClient : NHentaiClient
         {
-            var url = GetHomePageUrl(pageNum);
-            var books = await GetData<List<Book>>(url);
-            return new SearchResults
+            #region Urls
+
+            protected override string ApiRootUrl => "https://nhent.ai";
+
+            #endregion
+
+            #region Search
+
+            public override async Task<SearchResults> GetHomePageListAsync(int pageNum)
             {
-                Result = books,
-                PerPage = books.Count
-            };
-        }
+                var url = GetHomePageUrl(pageNum);
+                var books = await GetData<List<Book>>(url);
+                return new SearchResults
+                {
+                    Result = books,
+                    PerPage = books.Count
+                };
+            }
 
-        public override async Task<SearchResults> GetSearchPageListAsync(string keyword, int pageNum)
-        {
-            var url = GetSearchUrl(keyword, pageNum);
-            var books = await GetData<List<Book>>(url);
-            return new SearchResults
+            public override async Task<SearchResults> GetSearchPageListAsync(string keyword, int pageNum)
             {
-                Result = books,
-                PerPage = books.Count
-            };
-        }
+                var url = GetSearchUrl(keyword, pageNum);
+                var books = await GetData<List<Book>>(url);
+                return new SearchResults
+                {
+                    Result = books,
+                    PerPage = books.Count
+                };
+            }
 
-        public override async Task<SearchResults> GetTagPageListAsync(Tag tag, SortBy sortBy, int pageNum)
-        {
-            var url = GetTagUrl(tag, sortBy == SortBy.Popular, pageNum);
-            var books = await GetData<List<Book>>(url);
-            return new SearchResults
+            public override async Task<SearchResults> GetTagPageListAsync(Tag tag, SortBy sortBy, int pageNum)
             {
-                Result = books,
-                PerPage = books.Count
-            };
-        }
+                var url = GetTagUrl(tag, sortBy == SortBy.Popular, pageNum);
+                var books = await GetData<List<Book>>(url);
+                return new SearchResults
+                {
+                    Result = books,
+                    PerPage = books.Count
+                };
+            }
 
-        #endregion
+            #endregion
 
-        #region Books
+            #region Books
 
-        public override async Task<BookRecommend> GetBookRecommendAsync(int bookId)
-        {
-            var url = GetBookRecommendUrl(bookId);
-            var book = await GetData<Book>(url);
-            return new BookRecommend
+            public override async Task<BookRecommend> GetBookRecommendAsync(int bookId)
             {
-                Result = new List<Book> { book }
-            };
-        }
+                var url = GetBookRecommendUrl(bookId);
+                var book = await GetData<Book>(url);
+                return new BookRecommend
+                {
+                    Result = new List<Book> { book }
+                };
+            }
 
-        #endregion
+            #endregion
+        }
     }
 }
