@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NHentaiAPI.Model.Search
+﻿namespace NHentaiAPI.Models.Searches
 {
     public enum SortBy
     {
