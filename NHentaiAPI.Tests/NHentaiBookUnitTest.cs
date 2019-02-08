@@ -12,7 +12,7 @@ namespace NHentaiAPI.Tests
     /// https://github.com/andy840119/NHentaiSharp/blob/master/NHentaiSharp.UnitTests/Program.cs
     /// </summary>
     [TestClass]
-    public class NHentaiBookUnitTest
+    public class NHentaiBookUnitTest : BaseUnitTest
     {
         /// <summary>
         /// Get book detail
@@ -23,7 +23,7 @@ namespace NHentaiAPI.Tests
         public async Task TestBookResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //https://nhentai.net/api/gallery/161194
             var result = await client.GetBookAsync(161194);
@@ -47,7 +47,7 @@ namespace NHentaiAPI.Tests
         public async Task TestBookRecommendResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //https://nhentai.net/api/gallery/161194/related
             var result = await client.GetBookRecommendAsync(161194);

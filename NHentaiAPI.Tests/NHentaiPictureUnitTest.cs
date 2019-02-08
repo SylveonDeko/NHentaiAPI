@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace NHentaiAPI.Tests
 {
     [TestClass]
-    public class NHentaiPictureUnitTest
+    public class NHentaiPictureUnitTest : BaseUnitTest
     {
         /// <summary>
         /// Get picture by book's media id and pageNumber
@@ -18,7 +18,7 @@ namespace NHentaiAPI.Tests
         public async Task TestGetPictureResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //get book no 123
             var book = await client.GetBookAsync(123);
@@ -42,7 +42,7 @@ namespace NHentaiAPI.Tests
         public async Task TestGetThumbPictureResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //get book no 123
             var book = await client.GetBookAsync(123);
@@ -66,7 +66,7 @@ namespace NHentaiAPI.Tests
         public async Task TestGetBigCoverPictureResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //get book no 123
             var book = await client.GetBookAsync(123);
@@ -90,7 +90,7 @@ namespace NHentaiAPI.Tests
         public async Task TestGetOriginPictureResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //get book no 123
             var book = await client.GetBookAsync(123);
@@ -114,7 +114,7 @@ namespace NHentaiAPI.Tests
         public async Task TestBookThumbPictureResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //get book no 123
             var book = await client.GetBookAsync(123);

@@ -11,7 +11,7 @@ namespace NHentaiAPI.Tests
     /// https://github.com/NHMoeDev/NHentai-android/issues/27
     /// </summary>
     [TestClass]
-    public class NHentaiSearchUnitTest
+    public class NHentaiSearchUnitTest : BaseUnitTest
     {
         /// <summary>
         /// Get home page search result
@@ -22,7 +22,7 @@ namespace NHentaiAPI.Tests
         public async Task TestSearchHomePageResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //https://nhentai.net/api/galleries/all?page=1
             var result = await client.GetHomePageListAsync(1);
@@ -40,7 +40,7 @@ namespace NHentaiAPI.Tests
         public async Task TestSearchResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //https://nhentai.net/api/galleries/search?query=school%20swimsuit%20loli%20full%20color&page=2
             var result = await client.GetSearchPageListAsync("school swimsuit loli full color",2);
@@ -58,7 +58,7 @@ namespace NHentaiAPI.Tests
         public async Task TestTagResult()
         {
             //generate client
-            var client = new NHentaiClient();
+            var client = CreateNHentaiClient();
 
             //https://nhentai.net/api/galleries/tagged?tag_id=1&page=1&sort=popular
             var tag = new Tag
