@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using NHentaiAPI.Models.Books;
 
-namespace NHentaiAPI.Models.Searchs
+namespace NHentaiAPI.Models.Searches
 {
     public class SearchResults
     {

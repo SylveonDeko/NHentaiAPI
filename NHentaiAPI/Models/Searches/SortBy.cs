@@ -1,4 +1,4 @@
-﻿namespace NHentaiAPI.Models.Searchs
+﻿namespace NHentaiAPI.Models.Searches
 {
     public enum SortBy
     {

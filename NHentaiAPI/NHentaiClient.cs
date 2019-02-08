@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NHentaiAPI.Models.Books;
 using NHentaiAPI.Models.Recommends;
-using NHentaiAPI.Models.Searchs;
+using NHentaiAPI.Models.Searches;
 
 namespace NHentaiAPI
 {
