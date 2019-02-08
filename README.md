@@ -8,15 +8,18 @@
 
 A (full)  nHentai API implementation for .NET
 
+NOTE : Because N-Hentai Close its api temporarily. This package might not work normally.
+If N-Hentai re-open the api or change the api format, please throw a issue to let me know :)
+
 ## This package can get
 
 Search:
 
 1. Home page search result
 
-2. Search result by keyword
+2. Search result by `keyword`
 
-3. Search result by tag, can be sort by popular
+3. Search result by `tag`, can be sort by popular
 
 Book detail:
 
@@ -26,8 +29,8 @@ Book detail:
 
 Picture:
 
-1. Page picture(preview picture, thumbnail and origin picture)
-2. Cover picture(preview picture and thumbnail)
+1. Page picture (preview picture, thumbnail and origin picture)
+2. Cover picture (preview picture and thumbnail)
 
 ## Demo
 
