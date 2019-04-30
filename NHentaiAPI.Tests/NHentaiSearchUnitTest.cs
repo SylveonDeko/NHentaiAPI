@@ -16,7 +16,7 @@ namespace NHentaiAPI.Tests
         /// <summary>
         /// in old api is 25
         /// </summary>
-        protected virtual int ResultNumber => 50;
+        protected virtual int ResultNumber => 25;
 
         /// <summary>
         /// Get home page search result
@@ -26,11 +26,8 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestSearchHomePageResult()
         {
-            //generate client
-            var client = CreateNHentaiClient();
-
             //https://nhentai.net/api/galleries/all?page=1
-            var result = await client.GetHomePageListAsync(1);
+            var result = await NHentaiClient.GetHomePageListAsync(1);
 
             Assert.AreEqual(ResultNumber, result.PerPage);
             Assert.AreEqual(ResultNumber, result.Result.Count);
@@ -44,11 +41,8 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestSearchResult()
         {
-            //generate client
-            var client = CreateNHentaiClient();
-
             //https://nhentai.net/api/galleries/search?query=school
-            var result = await client.GetSearchPageListAsync("school",1);
+            var result = await NHentaiClient.GetSearchPageListAsync("school",1);
 
             Assert.AreEqual(ResultNumber, result.PerPage);
             Assert.AreEqual(ResultNumber, result.Result.Count);
@@ -59,19 +53,15 @@ namespace NHentaiAPI.Tests
         /// https://nhentai.net/galleries/tagged?tag_id=1&page=1&sort=popular
         /// </summary>
         /// <returns></returns>
-        [Ignore]
         [TestMethod]
         public async Task TestTagResult()
         {
-            //generate client
-            var client = CreateNHentaiClient();
-
             //https://nhentai.net/api/galleries/tagged?tag_id=1&page=1&sort=popular
             var tag = new Tag
             {
                 Id = 1
             };
-            var result = await client.GetTagPageListAsync(tag, SortBy.Popular, 1);
+            var result = await NHentaiClient.GetTagPageListAsync(tag, SortBy.Popular, 1);
 
             Assert.AreEqual(ResultNumber, result.PerPage);
             Assert.AreEqual(true, result.Result.Any());

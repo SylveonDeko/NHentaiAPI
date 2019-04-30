@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -12,7 +13,7 @@ namespace NHentaiAPI
     /// n-Hentai Client
     /// copied from : https://github.com/NHMoeDev/NHentai-android/blob/master/app/src/main/kotlin/moe/feng/nhentai/api/ApiConstants.kt
     /// </summary>
-    public class NHentaiClient
+    public class NHentaiClient : IDisposable
     {
         #region Client
 
@@ -107,8 +108,15 @@ namespace NHentaiAPI
 
         protected virtual async Task<TOutput> GetData<TOutput>(string rootUrl)
         {
-            var json = await _client.DownloadStringTaskAsync(rootUrl);
-            return JsonConvert.DeserializeObject<TOutput>(json);
+            try
+            {
+                var json = await _client.DownloadStringTaskAsync(rootUrl);
+                return JsonConvert.DeserializeObject<TOutput>(json);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected virtual async Task<byte[]> GetByteData(string rootUrl)
@@ -167,10 +175,14 @@ namespace NHentaiAPI
             return GetData<Book>(url);
         }
 
-        public virtual Task<BookRecommend> GetBookRecommendAsync(int bookId)
+        public virtual async Task<BookRecommend> GetBookRecommendAsync(int bookId)
         {
             var url = GetBookRecommendUrl(bookId);
-            return GetData<BookRecommend>(url);
+            var book = await GetData<Book>(url);
+            return new BookRecommend
+            {
+                Result = new List<Book> { book }
+            };
         }
 
         #endregion
@@ -228,5 +240,10 @@ namespace NHentaiAPI
         }
 
         #endregion
+
+        public void Dispose()
+        {
+            _client.Dispose();
+        }
     }
 }

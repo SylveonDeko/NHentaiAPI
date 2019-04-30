@@ -22,11 +22,8 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestBookResult()
         {
-            //generate client
-            var client = CreateNHentaiClient();
-
             //https://nhentai.net/api/gallery/161194
-            var result = await client.GetBookAsync(161194);
+            var result = await NHentaiClient.GetBookAsync(161194);
 
             Assert.AreEqual("[ユイザキカズヤ] つなかん。 (COMIC ポプリクラブ 2013年8月号) [英訳]", result.Title.Japanese);
             Assert.AreEqual("Tsuna-kan. | Tuna Can", result.Title.Pretty);
@@ -46,11 +43,8 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestBookRecommendResult()
         {
-            //generate client
-            var client = CreateNHentaiClient();
-
             //https://nhentai.net/api/gallery/161194/related
-            var result = await client.GetBookRecommendAsync(161194);
+            var result = await NHentaiClient.GetBookRecommendAsync(161194);
 
             //as least one recommend
             Assert.AreEqual(true, result.Result.Any());
