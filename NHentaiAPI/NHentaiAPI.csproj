@@ -11,9 +11,13 @@
     <RepositoryUrl>https://github.com/andy840119/NHentaiAPI.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>nhentai n-hentai hentai api csharp andy840119</PackageTags>
-    <PackageReleaseNotes>[1.0.0]
+    <PackageReleaseNotes>[1.1.0]
+Congratulations n-hentai's api re-open again.
+.
+[1.0.0]
 Implement most of the api i know that hHentai website have.</PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/andy840119/NHentaiAPI</PackageLicenseUrl>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
