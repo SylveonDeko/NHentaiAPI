@@ -8,13 +8,7 @@
 
 A (full)  nHentai API implementation for .NET
 
-`NOTE : Because N-Hentai Close its api temporarily. This package might not work normally.`
-
-In order to make it work, you need to override `NHentaiClient`
-
-See `BaseUnitTest.TestNHentaiClient` in project `NHentaiAPI.Tests`.
-
-If N-Hentai re-open the api or change the api format, please throw a issue to let me know :)
+If N-Hentai change the api format, please throw a issue to let me know :)
 
 ## This package can get
 
