@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NHentaiAPI.Models.Books;
@@ -17,7 +17,7 @@ namespace NHentaiAPI
     {
         #region Client
 
-        private readonly WebClient _client = new WebClient();
+        private readonly HttpClient _client = new HttpClient();
 
         #endregion
 
@@ -110,7 +110,7 @@ namespace NHentaiAPI
         {
             try
             {
-                var json = await _client.DownloadStringTaskAsync(rootUrl);
+                var json = await _client.GetStringAsync(rootUrl);
                 return JsonConvert.DeserializeObject<TOutput>(json);
             }
             catch (Exception ex)
@@ -121,7 +121,7 @@ namespace NHentaiAPI
 
         protected virtual async Task<byte[]> GetByteData(string rootUrl)
         {
-            var data = await _client.DownloadDataTaskAsync(rootUrl);
+            var data = await _client.GetByteArrayAsync(rootUrl);
             return data;
         }
 
