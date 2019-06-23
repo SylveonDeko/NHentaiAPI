@@ -11,14 +11,27 @@
     <RepositoryUrl>https://github.com/andy840119/NHentaiAPI.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>nhentai n-hentai hentai api csharp andy840119</PackageTags>
-    <PackageReleaseNotes>[1.1.0]
-Congratulations n-hentai's api re-open again.
-.
-[1.0.0]
-Implement most of the api i know that hHentai website have.</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      [1.2.0]
+WebClient -> HtpClient
+    </PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/andy840119/NHentaiAPI</PackageLicenseUrl>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
+
+  <!-- Conditionally obtain references for the .NET Framework 4.5 target -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Threading.Tasks" />
+  </ItemGroup>
+
+  <!-- Conditionally obtain references for the .NET Framework 4.5 target -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Threading.Tasks" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
