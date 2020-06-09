@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -22,7 +19,7 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestBookResult()
         {
-            //https://nhentai.net/api/gallery/161194
+            // https://nhentai.net/api/gallery/161194
             var result = await NHentaiClient.GetBookAsync(161194);
 
             Assert.AreEqual("[ユイザキカズヤ] つなかん。 (COMIC ポプリクラブ 2013年8月号) [英訳]", result.Title.Japanese);
@@ -43,10 +40,10 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestBookRecommendResult()
         {
-            //https://nhentai.net/api/gallery/161194/related
+            // https://nhentai.net/api/gallery/161194/related
             var result = await NHentaiClient.GetBookRecommendAsync(161194);
 
-            //as least one recommend
+            // At least one recommend
             Assert.AreEqual(true, result.Result.Any());
         }
     }
