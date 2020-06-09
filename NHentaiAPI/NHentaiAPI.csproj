@@ -12,11 +12,11 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>nhentai n-hentai hentai api csharp andy840119</PackageTags>
     <PackageReleaseNotes>
-      [1.2.0]
-WebClient -> HtpClient
+      [1.3.0]
+Add gif file format support.
     </PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/andy840119/NHentaiAPI</PackageLicenseUrl>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
   </PropertyGroup>
 
   <!-- Conditionally obtain references for the .NET Framework 4.5 target -->
