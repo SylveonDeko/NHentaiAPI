@@ -137,10 +137,17 @@ namespace NHentaiAPI
 
         protected virtual string ConvertType(ImageType type)
         {
-            if (type == ImageType.Jpg)
-                return "jpg";
-
-            return "png";
+            switch (type)
+            {
+                case ImageType.Gif:
+                    return "gif";
+                case ImageType.Jpg:
+                    return "jpg";
+                case ImageType.Png:
+                    return "png";
+                default:
+                    throw new NotSupportedException($"Format {nameof(type)}  does not support.");
+            }
         }
 
         #endregion

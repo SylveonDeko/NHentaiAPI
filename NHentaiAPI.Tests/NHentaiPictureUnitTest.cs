@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NHentaiAPI.Tests
@@ -28,6 +25,27 @@ namespace NHentaiAPI.Tests
 
             //make sure downloaded image
             Assert.AreEqual(true, result.Length>0);
+        }
+
+        /// <summary>
+        /// Get picture by book's media id and pageNumber
+        /// https://nhentai.net/g/288869 /
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task TestGetGifPictureResult()
+        {
+            //get book no 123
+            var book = await NHentaiClient.GetBookAsync(288869);
+
+            //Check this book is 
+            Assert.AreEqual(1504878, book.MediaId);
+
+            //https://i.nhentai.net/galleries/288869/22.jpg
+            var result = await NHentaiClient.GetPictureAsync(book, 22);
+
+            //make sure downloaded image
+            Assert.AreEqual(true, result.Length > 0);
         }
 
         /// <summary>
