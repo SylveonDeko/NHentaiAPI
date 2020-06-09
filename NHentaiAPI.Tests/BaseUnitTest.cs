@@ -1,12 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NHentaiAPI.Tests
 {
     public class BaseUnitTest
     {
-        protected NHentaiClient NHentaiClient { get; set; }
+        protected NHentaiClient NHentaiClient { get; private set; }
 
         [TestInitialize]
         public void InitializeTest()

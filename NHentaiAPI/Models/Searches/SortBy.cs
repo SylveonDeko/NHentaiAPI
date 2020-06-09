@@ -3,13 +3,13 @@
     public enum SortBy
     {
         /// <summary>
-        /// default sorting
+        /// Default sorting
         /// </summary>
         Default,
 
         /// <summary>
         /// Sorting by popular
         /// </summary>
-        Popular,
+        Popular
     }
 }

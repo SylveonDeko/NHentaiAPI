@@ -24,6 +24,6 @@ namespace NHentaiAPI.Models.Books
         Png,
 
         [EnumMember(Value = "g")]
-        Gif,
+        Gif
     }
 }

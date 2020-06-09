@@ -14,7 +14,7 @@ namespace NHentaiAPI.Tests
     public class NHentaiSearchUnitTest : BaseUnitTest
     {
         /// <summary>
-        /// in old api is 25
+        /// Target number of record in single page
         /// </summary>
         protected virtual int ResultNumber => 25;
 
@@ -26,7 +26,7 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestSearchHomePageResult()
         {
-            //https://nhentai.net/api/galleries/all?page=1
+            // https://nhentai.net/api/galleries/all?page=1
             var result = await NHentaiClient.GetHomePageListAsync(1);
 
             Assert.AreEqual(ResultNumber, result.PerPage);
@@ -41,7 +41,7 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestSearchResult()
         {
-            //https://nhentai.net/api/galleries/search?query=school
+            // https://nhentai.net/api/galleries/search?query=school
             var result = await NHentaiClient.GetSearchPageListAsync("school",1);
 
             Assert.AreEqual(ResultNumber, result.PerPage);
@@ -56,7 +56,7 @@ namespace NHentaiAPI.Tests
         [TestMethod]
         public async Task TestTagResult()
         {
-            //https://nhentai.net/api/galleries/tagged?tag_id=1&page=1&sort=popular
+            // https://nhentai.net/api/galleries/tagged?tag_id=1&page=1&sort=popular
             var tag = new Tag
             {
                 Id = 1
