@@ -19,11 +19,13 @@ namespace NHentaiAPI.Tests
 
             // Check this book is right media number
             Assert.AreEqual(635, book.MediaId);
-
-            // https://i.nhentai.net/galleries/635/1.jpg
-            var result = await NHentaiClient.GetPictureAsync(book, 1);
-
+            
+            // Check url
+            var imageUrl = NHentaiClient.GetPictureUrl(book, 1);
+            Assert.AreEqual(imageUrl, "https://i.nhentai.net/galleries/635/1.jpg");
+            
             // Make sure image is downloaded
+            var result = await NHentaiClient.GetPictureAsync(book, 1);
             Assert.AreEqual(true, result.Length>0);
         }
 
@@ -40,11 +42,13 @@ namespace NHentaiAPI.Tests
 
             // Check this book is right media number
             Assert.AreEqual(1504878, book.MediaId);
-
-            // https://i.nhentai.net/galleries/288869/22.jpg
-            var result = await NHentaiClient.GetPictureAsync(book, 22);
-
+            
+            // Check url
+            var imageUrl = NHentaiClient.GetPictureUrl(book, 22);
+            Assert.AreEqual(imageUrl, "https://i.nhentai.net/galleries/1504878/22.gif");
+            
             // Make sure image is downloaded
+            var result = await NHentaiClient.GetPictureAsync(book, 22);
             Assert.AreEqual(true, result.Length > 0);
         }
 
@@ -62,10 +66,12 @@ namespace NHentaiAPI.Tests
             // Check this book is right media number
             Assert.AreEqual(635, book.MediaId);
 
-            // https://t.nhentai.net/galleries/635/1t.jpg
-            var result = await NHentaiClient.GetThumbPictureAsync(book, 1);
-
+            // Check url
+            var imageUrl = NHentaiClient.GetThumbPictureUrl(book, 1);
+            Assert.AreEqual(imageUrl, "https://t.nhentai.net/galleries/635/1t.jpg");
+            
             // Make sure image is downloaded
+            var result = await NHentaiClient.GetThumbPictureAsync(book, 1);
             Assert.AreEqual(true, result.Length > 0);
         }
 
@@ -82,11 +88,13 @@ namespace NHentaiAPI.Tests
 
             // Check this book is right media number
             Assert.AreEqual(635, book.MediaId);
-
-            // https://i.nhentai.net/galleries/635/1.jpg
-            var result = await NHentaiClient.GetBigCoverPictureAsync(book);
+            
+            // Check url
+            var imageUrl = NHentaiClient.GetBigCoverUrl(book);
+            Assert.AreEqual(imageUrl, "https://t.nhentai.net/galleries/635/cover.jpg");
 
             // Make sure image is downloaded
+            var result = await NHentaiClient.GetBigCoverPictureAsync(book);
             Assert.AreEqual(true, result.Length > 0);
         }
 
@@ -103,11 +111,13 @@ namespace NHentaiAPI.Tests
 
             // Check this book is right media number
             Assert.AreEqual(635, book.MediaId);
-
-            // https://i.nhentai.net/galleries/635/1.jpg
-            var result = await NHentaiClient.GetOriginPictureAsync(book,1);
+            
+            // Check url
+            var imageUrl = NHentaiClient.GetOriginPictureUrl(book, 1);
+            Assert.AreEqual(imageUrl, "https://i.nhentai.net/galleries/635/1.jpg");
 
             // Make sure image is downloaded
+            var result = await NHentaiClient.GetOriginPictureAsync(book,1);
             Assert.AreEqual(true, result.Length > 0);
         }
 
@@ -125,10 +135,12 @@ namespace NHentaiAPI.Tests
             // Check this book is right media number
             Assert.AreEqual(635, book.MediaId);
 
-            // https://t.nhentai.net/galleries/635/thumb.jpg
-            var result = await NHentaiClient.GetBookThumbPictureAsync(book);
+            // Check url
+            var imageUrl = NHentaiClient.GetBookThumbUrl(book);
+            Assert.AreEqual(imageUrl, "https://t.nhentai.net/galleries/635/thumb.jpg");
 
             // Make sure image is downloaded
+            var result = await NHentaiClient.GetBookThumbPictureAsync(book);
             Assert.AreEqual(true, result.Length > 0);
         }
     }

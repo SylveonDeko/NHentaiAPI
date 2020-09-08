@@ -77,30 +77,59 @@ namespace NHentaiAPI
 
         #region Picture urls
 
-        protected virtual string GetPictureUrl(int galleryId , int pageNum ,string fileType)
-        { 
-            return $"{GetGalleryUrl(galleryId)}/{pageNum}.{fileType}";
-        }
-			
-	    protected virtual string GetThumbPictureUrl(int galleryId , int pageNum ,string fileType)
-        { 
-            return $"{GetThumbGalleryUrl(galleryId)}/{pageNum}t.{fileType}";
-        }
-			
-	    protected virtual string GetBigCoverUrl(int galleryId)
+        public virtual string GetPictureUrl(Book book, int pageNum)
         {
-            return $"{GetThumbGalleryUrl(galleryId)}/cover.jpg";
+            // Get image
+            var image = GetImage(book, pageNum);
+
+            // Get file type
+            var fileType = ConvertType(image.Type);
+
+            // Get url
+            return  GetPictureUrl(book.MediaId, pageNum, fileType);
         }
-			
-	    protected virtual string GetOriginPictureUrl(int galleryId , int pageNum)
+
+        public virtual string GetThumbPictureUrl(Book book, int pageNum)
         {
-            return GetPictureUrl(galleryId, pageNum, "jpg");
+            // Get image
+            var image = GetImage(book, pageNum);
+
+            // Get file type
+            var fileType = ConvertType(image.Type);
+
+            // Get url
+            return GetThumbPictureUrl(book.MediaId, pageNum, fileType);
         }
-			
-	    protected virtual string GetBookThumbUrl(int galleryId ,string fileType = "jpg")
-        { 
-            return $"{GetThumbGalleryUrl(galleryId)}/thumb.{fileType ?? "jpg"}";
+
+        public virtual string GetBigCoverUrl(Book book)
+            => GetBigCoverUrl(book.MediaId);
+
+        public virtual string GetOriginPictureUrl(Book book, int pageNum) 
+            => GetOriginPictureUrl(book.MediaId, pageNum);
+
+        public virtual string GetBookThumbUrl(Book book)
+        {
+            // Get file type
+            var fileType = ConvertType(book.Images.Cover.Type);
+
+            // Get url
+            return  GetBookThumbUrl(book.MediaId, fileType);
         }
+
+        protected virtual string GetPictureUrl(int galleryId , int pageNum ,string fileType) 
+            => $"{GetGalleryUrl(galleryId)}/{pageNum}.{fileType}";
+
+        protected virtual string GetThumbPictureUrl(int galleryId , int pageNum ,string fileType) 
+            => $"{GetThumbGalleryUrl(galleryId)}/{pageNum}t.{fileType}";
+
+        protected virtual string GetBigCoverUrl(int galleryId) 
+            => $"{GetThumbGalleryUrl(galleryId)}/cover.jpg";
+
+        protected virtual string GetOriginPictureUrl(int galleryId , int pageNum) 
+            => GetPictureUrl(galleryId, pageNum, "jpg");
+
+        protected virtual string GetBookThumbUrl(int galleryId ,string fileType = "jpg") 
+            => $"{GetThumbGalleryUrl(galleryId)}/thumb.{fileType ?? "jpg"}";
 
         #endregion
 
@@ -198,48 +227,31 @@ namespace NHentaiAPI
 
         public virtual Task<byte[]> GetPictureAsync(Book book, int pageNum)
         {
-            // Get image
-            var image = GetImage(book, pageNum);
-
-            // Get file type
-            var fileType = ConvertType(image.Type);
-
-            // Get binary file
-            var url = GetPictureUrl(book.MediaId, pageNum, fileType);
+            var url = GetPictureUrl(book, pageNum);
             return GetByteData(url);
         }
 
         public virtual Task<byte[]> GetThumbPictureAsync(Book book, int pageNum)
         {
-            // Get image
-            var image = GetImage(book, pageNum);
-
-            // Get file type
-            var fileType = ConvertType(image.Type);
-
-            // Get binary file
-            var url = GetThumbPictureUrl(book.MediaId, pageNum, fileType);
+            var url = GetThumbPictureUrl(book, pageNum);
             return GetByteData(url);
         }
 
         public virtual Task<byte[]> GetBigCoverPictureAsync(Book book)
         {
-            // Get binary file
             var url = GetBigCoverUrl(book.MediaId);
             return GetByteData(url);
         }
 
         public virtual Task<byte[]> GetOriginPictureAsync(Book book, int pageNum)
         {
-            // Get binary file
             var url = GetOriginPictureUrl(book.MediaId, pageNum);
             return GetByteData(url);
         }
 
         public virtual Task<byte[]> GetBookThumbPictureAsync(Book book)
         {
-            // Get binary file
-            var url = GetBookThumbUrl(book.MediaId);
+            var url = GetBookThumbUrl(book);
             return GetByteData(url);
         }
 
