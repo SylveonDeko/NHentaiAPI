@@ -33,45 +33,31 @@ namespace NHentaiAPI
 
         #region Data urls
 
-        protected virtual string GetHomePageUrl(int pageNum)
-        {
-            return $"{ApiRootUrl}/api/galleries/all?page={pageNum}";
-        }
+        protected virtual string GetHomePageUrl(int pageNum) 
+            => $"{ApiRootUrl}/api/galleries/all?page={pageNum}";
 
-        protected virtual string GetSearchUrl(string content,int pageNum)
-        { 
-            return $"{ApiRootUrl}/api/galleries/search?" +
-				$"query={content.Replace(" ", "+")}&" +
-                $"page={pageNum}";
-        }
+        protected virtual string GetSearchUrl(string content,int pageNum) 
+            => $"{ApiRootUrl}/api/galleries/search?" +
+               $"query={content.Replace(" ", "+")}&" +
+               $"page={pageNum}";
 
-        protected virtual string GetTagUrl(Tag tag, bool isPopularList, int pageNum)
-        {
-            return $"{ApiRootUrl}/api/galleries/tagged?" +
-                   $"tag_id={tag.Id}" +
-                   $"&page={pageNum}" +
-                   (isPopularList ? "&sort=popular" : "");
-        }
+        protected virtual string GetTagUrl(Tag tag, bool isPopularList, int pageNum) 
+            => $"{ApiRootUrl}/api/galleries/tagged?" +
+               $"tag_id={tag.Id}" +
+               $"&page={pageNum}" +
+               (isPopularList ? "&sort=popular" : "");
 
-        protected virtual string GetBookDetailsUrl(int bookId)
-        { 
-            return $"{ApiRootUrl}/api/gallery/{bookId}";
-        }
-			
-	    protected virtual string GetBookRecommendUrl(int bookId)
-        { 
-            return $"{ApiRootUrl}/api/gallery/{bookId}/related";
-        }
-			
-	    protected virtual string GetGalleryUrl(int galleryId)
-		{ 
-            return $"{ImageRootUrl}/galleries/{galleryId}";
-        }
+        protected virtual string GetBookDetailsUrl(int bookId) 
+            => $"{ApiRootUrl}/api/gallery/{bookId}";
 
-	    protected virtual string GetThumbGalleryUrl(int galleryId)
-        { 
-            return $"{ThumbnailRootUrl}/galleries/{galleryId}";
-        }
+        protected virtual string GetBookRecommendUrl(int bookId) 
+            => $"{ApiRootUrl}/api/gallery/{bookId}/related";
+
+        protected virtual string GetGalleryUrl(int galleryId) 
+            => $"{ImageRootUrl}/galleries/{galleryId}";
+
+        protected virtual string GetThumbGalleryUrl(int galleryId) 
+            => $"{ThumbnailRootUrl}/galleries/{galleryId}";
 
         #endregion
 
@@ -79,25 +65,15 @@ namespace NHentaiAPI
 
         public virtual string GetPictureUrl(Book book, int pageNum)
         {
-            // Get image
             var image = GetImage(book, pageNum);
-
-            // Get file type
             var fileType = ConvertType(image.Type);
-
-            // Get url
             return  GetPictureUrl(book.MediaId, pageNum, fileType);
         }
 
         public virtual string GetThumbPictureUrl(Book book, int pageNum)
         {
-            // Get image
             var image = GetImage(book, pageNum);
-
-            // Get file type
             var fileType = ConvertType(image.Type);
-
-            // Get url
             return GetThumbPictureUrl(book.MediaId, pageNum, fileType);
         }
 
@@ -109,10 +85,7 @@ namespace NHentaiAPI
 
         public virtual string GetBookThumbUrl(Book book)
         {
-            // Get file type
             var fileType = ConvertType(book.Images.Cover.Type);
-
-            // Get url
             return  GetBookThumbUrl(book.MediaId, fileType);
         }
 
@@ -137,15 +110,8 @@ namespace NHentaiAPI
 
         protected virtual async Task<TOutput> GetData<TOutput>(string rootUrl)
         {
-            try
-            {
-                var json = await _client.GetStringAsync(rootUrl);
-                return JsonConvert.DeserializeObject<TOutput>(json);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var json = await _client.GetStringAsync(rootUrl);
+            return JsonConvert.DeserializeObject<TOutput>(json);
         }
 
         protected virtual async Task<byte[]> GetByteData(string rootUrl)
@@ -159,7 +125,6 @@ namespace NHentaiAPI
             if (book == null)
                 throw new ArgumentNullException(nameof(book));
 
-            // Get page
             var page = book.Images.Pages[pageNum - 1];
             return page;
         }
