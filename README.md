@@ -1,7 +1,6 @@
 # HentaiAPI
 
 [![Build status](https://ci.appveyor.com/api/projects/status/9u2xoxn47irix7gp?svg=true)](https://ci.appveyor.com/project/andy840119/nhentaiapi)
-[![CodeFactor](https://www.codefactor.io/repository/github/andy840119/nhentaiapi/badge)](https://www.codefactor.io/repository/github/andy840119/nhentaiapi)
 [![NuGet](https://img.shields.io/nuget/v/NHentaiAPI.svg)](https://www.nuget.org/packages/NHentaiAPI)
 [![NuGet](https://img.shields.io/nuget/dt/NHentaiAPI.svg)](https://www.nuget.org/packages/NHentaiAPI)
 [![NuGet](https://img.shields.io/badge/月子我婆-passed-ff69b4.svg)](https://github.com/andy840119/NHentaiAPI)
@@ -19,6 +18,8 @@ Search:
 2. Search result by `keyword`
 
 3. Search result by `tag`, can be sort by popular
+
+4. Search tags can be filtered by putting `-` in front of them
 
 Book detail:
 
@@ -40,7 +41,7 @@ Search book:
 var client = new NHentaiClient();
 
 //https://nhentai.net/api/galleries/search?query=school%20swimsuit%20loli%20full%20color&page=2
-var result = await client.GetSearchPageListAsync("school swimsuit loli full color",2);
+var result = await client.GetSearchPageListAsync("school swimsuit full color -loli",2);
 ```
 
 Get book detail:

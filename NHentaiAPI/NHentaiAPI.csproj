@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net461;net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>andy840119</Authors>
+    <Authors>Sylveon76, andy840119</Authors>
     <Product>nHentai</Product>
     <Description>A (full?) nHentai API implementation for .NET</Description>
     <Copyright />
-    <PackageProjectUrl>https://github.com/andy840119/NHentaiAPI</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/andy840119/NHentaiAPI.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Sylveon76/NHentaiAPI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Sylveon76/NHentaiAPI.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>nhentai n-hentai hentai api csharp andy840119</PackageTags>
+    <PackageTags>nhentai n-hentai hentai api csharp Sylveon76, andy840119</PackageTags>
     <PackageReleaseNotes>
-      [1.4.0]
-Add get url method.
+      [1.5.0]
+Refactor api client    
     </PackageReleaseNotes>
-    <PackageLicenseUrl>https://github.com/andy840119/NHentaiAPI</PackageLicenseUrl>
-    <Version>1.4.0</Version>
+    <PackageLicenseUrl>https://github.com/Sylveon76/NHentaiAPI/LICENSE</PackageLicenseUrl>
+    <Version>1.5.0</Version>
   </PropertyGroup>
 
   <!-- Conditionally obtain references for the .NET Framework 4.5 target -->
