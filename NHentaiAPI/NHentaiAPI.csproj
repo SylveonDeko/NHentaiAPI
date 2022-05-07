@@ -15,7 +15,7 @@
       [1.5.0]
 Refactor api client    
     </PackageReleaseNotes>
-    <PackageLicenseUrl>https://github.com/Sylveon76/NHentaiAPI/LICENSE</PackageLicenseUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Version>1.5.0</Version>
   </PropertyGroup>
 
@@ -34,7 +34,9 @@ Refactor api client
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="..\LICENSE" Pack="true" PackagePath=""/>
+  </ItemGroup>
 </Project>
