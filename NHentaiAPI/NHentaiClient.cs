@@ -23,11 +23,9 @@ namespace NHentaiAPI
 
         #region Urls
 
-        private static string ApiRootUrl => "https://nhentai.net";
-
-        private static string ImageRootUrl => "https://i.nhentai.net";
-
-        private static string ThumbnailRootUrl => "https://t.nhentai.net";
+        private const string ApiRootUrl = "https://nhentai.net";
+        private const string ImageRootUrl = "https://i.nhentai.net";
+        private const string ThumbnailRootUrl = "https://t.nhentai.net";
 
         #endregion
 
