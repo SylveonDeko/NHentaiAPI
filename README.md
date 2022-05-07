@@ -1,9 +1,9 @@
 # HentaiAPI
 
-[![Build status](https://ci.appveyor.com/api/projects/status/9u2xoxn47irix7gp?svg=true)](https://ci.appveyor.com/project/andy840119/nhentaiapi)
+[![Build status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/Sylveon76/nhentaiapi)
 [![NuGet](https://img.shields.io/nuget/v/NHentaiAPI.svg)](https://www.nuget.org/packages/NHentaiAPI)
 [![NuGet](https://img.shields.io/nuget/dt/NHentaiAPI.svg)](https://www.nuget.org/packages/NHentaiAPI)
-[![NuGet](https://img.shields.io/badge/月子我婆-passed-ff69b4.svg)](https://github.com/andy840119/NHentaiAPI)
+[![NuGet](https://img.shields.io/badge/月子我婆-passed-ff69b4.svg)](https://github.com/Sylveon76/NHentaiAPI)
 
 A (full)  nHentai API implementation for .NET
 
