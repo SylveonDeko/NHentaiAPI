@@ -9,6 +9,11 @@ A (full)  nHentai API implementation for .NET
 
 If N-Hentai change the api format, please throw a issue to let me know :)
 
+# Check out my other projects
+## Mewdeko https://github.com/Sylveon76/Mewdeko
+## MartineApi https://github.com/Sylveon76/MartineApi.Net
+## NekosBestApi https://github.com/Sylveon76/Nekos.Best-API
+
 ## This package can get
 
 Search:
