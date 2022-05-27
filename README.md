@@ -1,4 +1,4 @@
-# HentaiAPI
+# NHentaiAPI
 
 [![Build status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/Sylveon76/nhentaiapi)
 [![NuGet](https://img.shields.io/nuget/v/NHentaiAPI.svg)](https://www.nuget.org/packages/NHentaiAPI)
