@@ -45,7 +45,7 @@ namespace NHentaiAPI.Tests
             
             // Check url
             var imageUrl = NHentaiClient.GetPictureUrl(book, 22);
-            Assert.AreEqual(imageUrl.AbsoluteUri, "https://i.nhentai.net/galleries/1504878/22.gif");
+            Assert.AreEqual(imageUrl, "https://i.nhentai.net/galleries/1504878/22.gif");
             
             // Make sure image is downloaded
             var result = await NHentaiClient.GetPictureAsync(book, 22);

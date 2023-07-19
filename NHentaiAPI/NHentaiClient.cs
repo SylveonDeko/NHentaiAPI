@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -17,112 +18,136 @@ namespace NHentaiAPI
     {
         #region Client
 
-        private readonly HttpClient _client = new HttpClient();
+        private readonly HttpClient _client;
+
+        public NHentaiClient(string userAgent, Dictionary<string, string> cookies = null)
+        {
+            var cookies1 = new CookieContainer();
+            var handler = new HttpClientHandler { CookieContainer = cookies1 };
+            _client = new HttpClient(handler);
+
+            _client.DefaultRequestHeaders.Add("User-Agent", userAgent);
+
+            if (cookies == null) return;
+            var cookieUri = new Uri(ApiRootUrl);
+                
+            foreach (var cookie in cookies)
+            {
+                cookies1.Add(cookieUri, new Cookie(cookie.Key, cookie.Value));
+            }
+        }
 
         #endregion
 
         #region Urls
 
-        private const string ApiRootUrl = "https://nhentai.net";
-        private const string ImageRootUrl = "https://i.nhentai.net";
-        private const string ThumbnailRootUrl = "https://t.nhentai.net";
+        protected virtual string ApiRootUrl => "https://nhentai.net";
+
+        protected virtual string ImageRootUrl => "https://i.nhentai.net";
+
+        protected virtual string ThumbnailRootUrl => "https://t.nhentai.net";
 
         #endregion
 
         #region Data urls
 
-        private static Uri GetHomePageUrl(int pageNum)
-            => new Uri($"{ApiRootUrl}/api/galleries/all?page={pageNum}");
+        protected virtual string GetHomePageUrl(int pageNum) 
+            => $"{ApiRootUrl}/api/galleries/all?page={pageNum}";
 
-        private static Uri GetSearchUrl(string content, int pageNum)
-            => new Uri($"{ApiRootUrl}/api/galleries/search?query={content.Replace(" ", "+")}&page={pageNum}");
+        protected virtual string GetSearchUrl(string content,int pageNum) 
+            => $"{ApiRootUrl}/api/galleries/search?" +
+               $"query={content.Replace(" ", "+")}&" +
+               $"page={pageNum}";
 
-        private static Uri GetTagUrl(Tag tag, bool isPopularList, int pageNum)
-            => new Uri($"{ApiRootUrl}/api/galleries/tagged?tag_id={tag.Id}&page={pageNum}{(isPopularList ? "&sort=popular" : "")}");
+        protected virtual string GetTagUrl(Tag tag, bool isPopularList, int pageNum) 
+            => $"{ApiRootUrl}/api/galleries/tagged?" +
+               $"tag_id={tag.Id}" +
+               $"&page={pageNum}" +
+               (isPopularList ? "&sort=popular" : "");
 
-        private static Uri GetBookDetailsUrl(int bookId)
-            => new Uri($"{ApiRootUrl}/api/gallery/{bookId}");
+        protected virtual string GetBookDetailsUrl(int bookId) 
+            => $"{ApiRootUrl}/api/gallery/{bookId}";
 
-        private static Uri GetBookRecommendUrl(int bookId)
-            => new Uri($"{ApiRootUrl}/api/gallery/{bookId}/related");
+        protected virtual string GetBookRecommendUrl(int bookId) 
+            => $"{ApiRootUrl}/api/gallery/{bookId}/related";
 
-        private static Uri GetGalleryUrl(int galleryId)
-            => new Uri($"{ImageRootUrl}/galleries/{galleryId}");
+        protected virtual string GetGalleryUrl(int galleryId) 
+            => $"{ImageRootUrl}/galleries/{galleryId}";
 
-        private static Uri GetThumbGalleryUrl(int galleryId)
-            => new Uri($"{ThumbnailRootUrl}/galleries/{galleryId}");
+        protected virtual string GetThumbGalleryUrl(int galleryId) 
+            => $"{ThumbnailRootUrl}/galleries/{galleryId}";
 
         #endregion
 
         #region Picture urls
 
-        public static Uri GetPictureUrl(Book book, int pageNum)
+        public virtual string GetPictureUrl(Book book, int pageNum)
         {
-            var image = GetImage(book, pageNum-1);
+            var image = GetImage(book, pageNum);
             var fileType = ConvertType(image.Type);
-            return GetPictureUrl(book.MediaId, pageNum, fileType);
+            return  GetPictureUrl(book.MediaId, pageNum, fileType);
         }
 
-        public static Uri GetThumbPictureUrl(Book book, int pageNum)
+        public virtual string GetThumbPictureUrl(Book book, int pageNum)
         {
             var image = GetImage(book, pageNum);
             var fileType = ConvertType(image.Type);
             return GetThumbPictureUrl(book.MediaId, pageNum, fileType);
         }
 
-        public Uri GetBigCoverUrl(Book book)
+        public virtual string GetBigCoverUrl(Book book)
             => GetBigCoverUrl(book.MediaId);
 
-        public Uri GetOriginPictureUrl(Book book, int pageNum)
+        public virtual string GetOriginPictureUrl(Book book, int pageNum) 
             => GetOriginPictureUrl(book.MediaId, pageNum);
 
-        public static Uri GetBookThumbUrl(Book book)
+        public virtual string GetBookThumbUrl(Book book)
         {
             var fileType = ConvertType(book.Images.Cover.Type);
-            return GetBookThumbUrl(book.MediaId, fileType);
+            return  GetBookThumbUrl(book.MediaId, fileType);
         }
 
-        private static Uri GetPictureUrl(int galleryId, int pageNum, string fileType)
-            => new Uri($"{GetGalleryUrl(galleryId)}/{pageNum}.{fileType}");
+        protected virtual string GetPictureUrl(int galleryId , int pageNum ,string fileType) 
+            => $"{GetGalleryUrl(galleryId)}/{pageNum}.{fileType}";
 
-        private static Uri GetThumbPictureUrl(int galleryId, int pageNum, string fileType)
-            => new Uri($"{GetThumbGalleryUrl(galleryId)}/{pageNum}t.{fileType}");
+        protected virtual string GetThumbPictureUrl(int galleryId , int pageNum ,string fileType) 
+            => $"{GetThumbGalleryUrl(galleryId)}/{pageNum}t.{fileType}";
 
-        private static Uri GetBigCoverUrl(int galleryId)
-            => new Uri($"{GetThumbGalleryUrl(galleryId)}/cover.jpg");
+        protected virtual string GetBigCoverUrl(int galleryId) 
+            => $"{GetThumbGalleryUrl(galleryId)}/cover.jpg";
 
-        private static Uri GetOriginPictureUrl(int galleryId, int pageNum)
+        protected virtual string GetOriginPictureUrl(int galleryId , int pageNum) 
             => GetPictureUrl(galleryId, pageNum, "jpg");
 
-        private static Uri GetBookThumbUrl(int galleryId, string fileType = "jpg")
-            => new Uri($"{GetThumbGalleryUrl(galleryId)}/thumb.{fileType ?? "jpg"}");
+        protected virtual string GetBookThumbUrl(int galleryId ,string fileType = "jpg") 
+            => $"{GetThumbGalleryUrl(galleryId)}/thumb.{fileType ?? "jpg"}";
 
         #endregion
 
         #region Utilities
 
-        private async Task<TOutput> GetData<TOutput>(string rootUrl)
+        protected virtual async Task<TOutput> GetData<TOutput>(string rootUrl)
         {
             var json = await _client.GetStringAsync(rootUrl);
             return JsonConvert.DeserializeObject<TOutput>(json);
         }
 
-        private async Task<byte[]> GetByteData(string rootUrl)
+        protected virtual async Task<byte[]> GetByteData(string rootUrl)
         {
             var data = await _client.GetByteArrayAsync(rootUrl);
             return data;
         }
 
-        private static Image GetImage(Book book, int pageNum)
+        protected virtual Image GetImage(Book book, int pageNum)
         {
             if (book == null)
                 throw new ArgumentNullException(nameof(book));
-            
-            var page = book.Images.Pages[pageNum];
+
+            var page = book.Images.Pages[pageNum - 1];
             return page;
         }
 
-        private static string ConvertType(ImageType type)
+        protected virtual string ConvertType(ImageType type)
         {
             switch (type)
             {
@@ -141,38 +166,38 @@ namespace NHentaiAPI
 
         #region Search
 
-        public Task<SearchResults> GetHomePageListAsync(int pageNum)
-        {
+        public virtual Task<SearchResults> GetHomePageListAsync(int pageNum)
+        { 
             var url = GetHomePageUrl(pageNum);
-            return GetData<SearchResults>(url.AbsoluteUri);
+            return GetData<SearchResults>(url);
         }
 
-        public Task<SearchResults> GetSearchPageListAsync(string keyword, int pageNum)
-        {
+	    public virtual Task<SearchResults> GetSearchPageListAsync(string keyword,int pageNum)	
+		{ 
             var url = GetSearchUrl(keyword, pageNum);
-            return GetData<SearchResults>(url.AbsoluteUri);
+            return GetData<SearchResults>(url);
         }
 
-        public Task<SearchResults> GetTagPageListAsync(Tag tag, SortBy sortBy, int pageNum)
+        public virtual Task<SearchResults> GetTagPageListAsync(Tag tag, SortBy sortBy, int pageNum)
         {
             var url = GetTagUrl(tag, sortBy == SortBy.Popular, pageNum);
-            return GetData<SearchResults>(url.AbsoluteUri);
+            return GetData<SearchResults>(url);
         }
 
         #endregion
 
         #region Books
 
-        public async Task<Book> GetBookAsync(int bookId)
+        public virtual Task<Book> GetBookAsync(int bookId)
         {
             var url = GetBookDetailsUrl(bookId);
-            return await GetData<Book>(url.AbsoluteUri);
+            return GetData<Book>(url);
         }
 
-        public async Task<BookRecommend> GetBookRecommendAsync(int bookId)
+        public virtual async Task<BookRecommend> GetBookRecommendAsync(int bookId)
         {
             var url = GetBookRecommendUrl(bookId);
-            var book = await GetData<Book>(url.AbsoluteUri);
+            var book = await GetData<Book>(url);
             return new BookRecommend
             {
                 Result = new List<Book> { book }
@@ -183,34 +208,34 @@ namespace NHentaiAPI
 
         #region Picture
 
-        public Task<byte[]> GetPictureAsync(Book book, int pageNum)
+        public virtual Task<byte[]> GetPictureAsync(Book book, int pageNum)
         {
             var url = GetPictureUrl(book, pageNum);
-            return GetByteData(url.AbsoluteUri);
+            return GetByteData(url);
         }
 
-        public Task<byte[]> GetThumbPictureAsync(Book book, int pageNum)
+        public virtual Task<byte[]> GetThumbPictureAsync(Book book, int pageNum)
         {
             var url = GetThumbPictureUrl(book, pageNum);
-            return GetByteData(url.AbsoluteUri);
+            return GetByteData(url);
         }
 
-        public Task<byte[]> GetBigCoverPictureAsync(Book book)
+        public virtual Task<byte[]> GetBigCoverPictureAsync(Book book)
         {
             var url = GetBigCoverUrl(book.MediaId);
-            return GetByteData(url.AbsoluteUri);
+            return GetByteData(url);
         }
 
-        public Task<byte[]> GetOriginPictureAsync(Book book, int pageNum)
+        public virtual Task<byte[]> GetOriginPictureAsync(Book book, int pageNum)
         {
             var url = GetOriginPictureUrl(book.MediaId, pageNum);
-            return GetByteData(url.AbsoluteUri);
+            return GetByteData(url);
         }
 
-        public Task<byte[]> GetBookThumbPictureAsync(Book book)
+        public virtual Task<byte[]> GetBookThumbPictureAsync(Book book)
         {
             var url = GetBookThumbUrl(book);
-            return GetByteData(url.AbsoluteUri);
+            return GetByteData(url);
         }
 
         #endregion

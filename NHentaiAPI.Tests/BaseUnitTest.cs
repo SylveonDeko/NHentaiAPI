@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NHentaiAPI.Tests
 {
@@ -9,13 +10,7 @@ namespace NHentaiAPI.Tests
         [TestInitialize]
         public void InitializeTest()
         {
-            NHentaiClient = new TestNHentaiClient();
-        }
-
-        [TestCleanup]
-        public void CleanUp()
-        {
-            NHentaiClient.Dispose();
+            NHentaiClient = new TestNHentaiClient("a", new Dictionary<string, string>());
         }
     }
 
@@ -26,5 +21,9 @@ namespace NHentaiAPI.Tests
         //protected override string ApiRootUrl => "https://nhent.ai";
 
         #endregion
+
+        public TestNHentaiClient(string userAgent, Dictionary<string, string> cookies = null) : base(userAgent, cookies)
+        {
+        }
     }
 }
