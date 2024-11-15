@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace NHentaiAPI.Tests
+namespace NHentaiAPI.Tests;
+
+public class BaseUnitTest
 {
-    public class BaseUnitTest
-    {
-        protected NHentaiClient NHentaiClient { get; private set; }
+    protected NHentaiClient NHentaiClient { get; private set; }
 
-        [TestInitialize]
-        public void InitializeTest()
-        {
-            NHentaiClient = new TestNHentaiClient("a", new Dictionary<string, string>());
-        }
+    [TestInitialize]
+    public void InitializeTest()
+    {
+        NHentaiClient = new TestNHentaiClient("a", new Dictionary<string, string>());
+    }
+}
+
+public class TestNHentaiClient : NHentaiClient
+{
+    public TestNHentaiClient(string userAgent, Dictionary<string, string> cookies = null) : base(userAgent, cookies)
+    {
     }
 
-    public class TestNHentaiClient : NHentaiClient
-    {
-        #region Urls
+    #region Urls
 
-        //protected override string ApiRootUrl => "https://nhent.ai";
+    //protected override string ApiRootUrl => "https://nhent.ai";
 
-        #endregion
-
-        public TestNHentaiClient(string userAgent, Dictionary<string, string> cookies = null) : base(userAgent, cookies)
-        {
-        }
-    }
+    #endregion
 }

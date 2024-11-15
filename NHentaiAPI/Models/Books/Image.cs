@@ -1,29 +1,51 @@
 ﻿using System.Runtime.Serialization;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using NHentaiAPI.JsonConverters;
 
-namespace NHentaiAPI.Models.Books
+namespace NHentaiAPI.Models.Books;
+
+/// <summary>
+///     Represents an image's metadata
+/// </summary>
+public class Image
 {
-    public class Image
-    {
-        [JsonProperty("t")]
-        public ImageType Type { get; set; }
+    /// <summary>
+    ///     Gets or sets the type/format of the image
+    /// </summary>
+    [JsonPropertyName("t")]
+    [JsonConverter(typeof(ImageTypeConverter))]
+    public ImageType Type { get; set; }
 
-        [JsonProperty("w")]
-        public int Width { get; set; }
+    /// <summary>
+    ///     Gets or sets the width of the image in pixels
+    /// </summary>
+    [JsonPropertyName("w")]
+    public int Width { get; set; }
 
-        [JsonProperty("h")]
-        public int Height { get; set; }
-    }
+    /// <summary>
+    ///     Gets or sets the height of the image in pixels
+    /// </summary>
+    [JsonPropertyName("h")]
+    public int Height { get; set; }
+}
 
-    public enum ImageType
-    {
-        [EnumMember(Value = "j")]
-        Jpg,
+/// <summary>
+///     Defines the supported image formats
+/// </summary>
+public enum ImageType
+{
+    /// <summary>
+    ///     JPEG image format
+    /// </summary>
+    [EnumMember(Value = "j")] Jpg,
 
-        [EnumMember(Value = "p")]
-        Png,
+    /// <summary>
+    ///     PNG image format
+    /// </summary>
+    [EnumMember(Value = "p")] Png,
 
-        [EnumMember(Value = "g")]
-        Gif
-    }
+    /// <summary>
+    ///     GIF image format
+    /// </summary>
+    [EnumMember(Value = "g")] Gif
 }

@@ -1,16 +1,27 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
-namespace NHentaiAPI.Models.Books
+namespace NHentaiAPI.Models.Books;
+
+/// <summary>
+///     Represents a book's title in different languages
+/// </summary>
+public class Title
 {
-    public class Title
-    {
-        [JsonProperty("english")]
-        public string English { get; set; }
+    /// <summary>
+    ///     Gets or sets the English title
+    /// </summary>
+    [JsonPropertyName("english")]
+    public string English { get; set; }
 
-        [JsonProperty("japanese")]
-        public string Japanese { get; set; }
+    /// <summary>
+    ///     Gets or sets the Japanese title
+    /// </summary>
+    [JsonPropertyName("japanese")]
+    public string Japanese { get; set; }
 
-        [JsonProperty("pretty")]
-        public string Pretty { get; set; }
-    }
+    /// <summary>
+    ///     Gets or sets the formatted/pretty title
+    /// </summary>
+    [JsonPropertyName("pretty")]
+    public string Pretty { get; set; }
 }
